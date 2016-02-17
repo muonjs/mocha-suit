@@ -1,0 +1,25 @@
+{
+  "name": "mocha-suit",
+  "version": "0.0.1",
+  "description": "Suit for your mocha tests",
+  "main": "app.js",
+  "scripts": {
+    "test": "mocha"
+  },
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/muonjs/mocha-suit.git"
+  },
+  "keywords": [
+    "mocha",
+    "tests",
+    "suit",
+    "jasmine"
+  ],
+  "author": "Sukharev Kirill <SukharevKirill@gmail.com>",
+  "license": "MIT",
+  "bugs": {
+    "url": "https://github.com/muonjs/mocha-suit/issues"
+  },
+  "homepage": "https://github.com/muonjs/mocha-suit#readme"
+}

@@ -1,0 +1,9 @@
+/test
+/reports
+/README*
+npm-debug.log
+*.db
+.idea
+.DS_Store
+.*.bash
+.project
