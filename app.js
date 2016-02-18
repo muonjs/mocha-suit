@@ -42,6 +42,8 @@ module.exports = function(name,ctx,f) {
                 msg = "";
             }
 
+            msg = msg || "";
+
             var parents = [];
             var current = this.suit;
 
