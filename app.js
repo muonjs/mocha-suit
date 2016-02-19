@@ -33,10 +33,7 @@ module.exports = function(name,ctx,f) {
     name = name || "";
 
     var TestSuit = function(msg,_ctx){
-        if (!(this instanceof this.suit)){
-            return;
-        }
-        else {
+        if (this && this instanceof this.suit){
             if (msg instanceof Object) {
                 _ctx = msg;
                 msg = "";
@@ -63,6 +60,8 @@ module.exports = function(name,ctx,f) {
             utils.extend(ctx,_ctx);
 
             generateDescribe(parents,ctx,utils.dotEndString(msg),That);
+        } else {
+            utils.generateObject(TestSuit,arguments);
         }
     };
 
@@ -111,10 +110,12 @@ module.exports = function(name,ctx,f) {
         msg = String(msg);
         var Parent = this;
         var NewSuit = function() {
-            if (this instanceof this.suit) {
+            if (this && (this instanceof this.suit)) {
                 Parent.apply(this,arguments);
             }
-
+            else {
+                utils.generateObject(NewSuit,arguments);
+            }
         };
         utils.extend(NewSuit,Parent);
         utils.extendSuit(NewSuit,{
