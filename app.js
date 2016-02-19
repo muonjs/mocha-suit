@@ -69,7 +69,7 @@ module.exports = function(name,ctx,f) {
         parent: null,
         fcall: f,
         describe: name,
-        contextData: {}
+        contextData: ctx
     });
 
     SETUP_METHODS.forEach(function(callName){
