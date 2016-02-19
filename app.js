@@ -110,7 +110,12 @@ module.exports = function(name,ctx,f) {
 
         msg = String(msg);
         var Parent = this;
-        var NewSuit = function() { Parent.apply(this,arguments); };
+        var NewSuit = function() {
+            if (this instanceof this.suit) {
+                Parent.apply(this,arguments);
+            }
+
+        };
         utils.extend(NewSuit,Parent);
         utils.extendSuit(NewSuit,{
             parent: Parent,
