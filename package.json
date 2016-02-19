@@ -1,6 +1,6 @@
 {
   "name": "mocha-suit",
-  "version": "0.0.4",
+  "version": "0.2.1",
   "description": "Suit for your mocha tests",
   "main": "app.js",
   "scripts": {
