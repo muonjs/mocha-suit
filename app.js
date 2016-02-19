@@ -52,7 +52,7 @@ module.exports = function(name,ctx,f) {
                 current = current.parent;
             }
 
-            var ctx = {};
+            var ctx = this;
             var That = {__it: [], __xit: []};
             parents.forEach(function(Suit){
                 utils.extend(ctx,Suit.contextData);
