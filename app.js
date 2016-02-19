@@ -2,7 +2,7 @@
 
 var fRegCheck = /^function\s+\(\S+?\)/;
 var generateDescribe = require("./lib/generate");
-const METHODS = generateDescribe.METHODS;
+const SETUP_METHODS = generateDescribe.SETUP_METHODS;
 const IT_METHODS = generateDescribe.IT_METHODS;
 const THAT_METHODS = generateDescribe.THAT_METHODS;
 
@@ -73,16 +73,26 @@ module.exports = function(name,ctx,f) {
         contextData: {}
     });
 
-    METHODS.forEach(function(callName){
+    SETUP_METHODS.forEach(function(callName){
         TestSuit[callName] = function(f) {
-            utils.pushNewCall(this,callName, { fcall: f, useDone: fRegCheck.test(f) });
+            if (utils.isSuit(f)) {
+                utils.pushNewCall(this,callName, { suit: f });
+            } else {
+                utils.pushNewCall(this,callName, { fcall: f, useDone: fRegCheck.test(f) });
+            }
+            return this;
         };
     });
 
     IT_METHODS.concat(THAT_METHODS).forEach(function(callName){
         TestSuit[callName] = function(msg,f) {
-            msg = String(msg);
-            utils.pushNewCall(this,callName, { msg: msg, fcall: f, useDone: fRegCheck.test(f) });
+            if (utils.isSuit(msg)) {
+                utils.pushNewCall(this,callName, { suit: msg });
+            } else {
+                msg = String(msg);
+                utils.pushNewCall(this,callName, { msg: msg, fcall: f, useDone: fRegCheck.test(f) });
+            }
+            return this;
         };
     });
 
