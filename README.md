@@ -9,7 +9,7 @@ It's a simple wrapper for your Mocha tests to make them a bit more OOP like.
 The main rule of any test you create is **TEST should be simple as much as posible**.
 Unfortunately JavaScript which is my the most loved programing language is so elegant and simple that sometimes it's become a problem when you create something  more or less complicated.
 
-In most cases it's ok to use algorithmic approach with all these *describes*/*before*/*it*/*after* when you create some simple stuff. But basically it does not encourage you to reuse your code. And at some point you start to share your variables and methods between your *describes* in common closure or (ohh no!) in global object. Then you create your own wrappers upon test modules, move  helpers from neighboring modules and so on. And finally you reinvent the wheel and create your own test generation script. 
+To be honest all we know JS is object oriented language just partially. This is the reason why it's not so easy to create test framework on JavaScript so cool as for example jUnit in Java. In most cases it's ok to follow algorithmic approach with all these *describes*/*before*/*it*/*after* when you create some simple stuff. But basically it does not encourage you to reuse your code. And at some point you start to share your variables and methods between your *describes* in common closure or (ohh no!) in global object. Then you create your own wrappers upon test modules, move  helpers from neighboring modules and so on. And finally you reinvent the wheel and create your own test generation script. 
 
 So I did. Almost did
 
@@ -28,8 +28,6 @@ $ npm link mocha-suit
 ```
 
 ## Description ##
-
-To be honest all we know JS is object oriented language just partially. This is the reason why it's not so easy to create test framework on JavaScript so cool as for example jUnit in Java.
 
 Mocha Suit is the wrapper upon the [Mocha](http://mochajs.org/) test framework. It helps you to incapsulate your tests within the class object (named **Suit**) with it's own setup (`before` and `beforeEach`), teardown (`after` and `afterEach`) methods and testcases (`it`) themselves. Literally Suit is a `describe` block of Mocha with it's own testcases.
 
