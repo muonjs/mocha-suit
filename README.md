@@ -31,8 +31,7 @@ $ npm link mocha-suit
 
 To be honest all we know JS is object oriented language just partially. This is the reason why it's not so easy to create test framework on JavaScript so cool as for example jUnit in Java.
 
-Mocha Suit is the wrapper upon the [Mocha](http://mochajs.org/) test framework. It helps you to incapsulate your tests within the class object (named **Suit**) with it's own setup (*before*), teardown (*after*) methods and testcases (*it*) themselves.
-Literally Suit is a *describe* block of Mocha with it's own testcases.
+Mocha Suit is the wrapper upon the [Mocha](http://mochajs.org/) test framework. It helps you to incapsulate your tests within the class object (named **Suit**) with it's own setup (`before` and `beforeEach`), teardown (`after` and `afterEach`) methods and testcases (`it`) themselves. Literally Suit is a `describe` block of Mocha with it's own testcases.
 
 ```js
 var MochaSuit = require("mocha-suit");
@@ -49,7 +48,7 @@ describe("Your first test suit",function() {
 });
 ```
 
-Suit could be extended to new sub suit, that means you place another *describe* block inside of top one.
+Suit could be extended to new sub suit, that means you place another `describe` block inside of top one.
 
 ```js
 var MochaSuit = require("mocha-suit");
@@ -71,7 +70,7 @@ describe("Top test suit",function() {
     })
 });
 ```
-Mocha Suit is complient to Mocha. So *this* is always Mocha's *this* object which is accessible inside of all Mocha's setup and test methods when you run them in usual manner.  Also you can use *done* argument to call methods asyncronously (or return a Promise object).
+Mocha Suit is complient to Mocha. So `this` is always Mocha's `this` object which is accessible inside of all Mocha's setup and test methods when you run them in usual manner.  Also you can use `done` argument to call methods asyncronously (or return a Promise object).
 
 ```js
 Suit.before(function(done) {
@@ -95,6 +94,12 @@ before(function() {
 ```
 
 Is that all? Nope. Welcome to the [wiki](https://github.com/muonjs/mocha-suit/wiki) for the rest cool stuff.
+
+## Usage ##
+
+Mocha Suit depends on Mocha. So you need to initialize Mocha before run your tests. Simplest way is to put your tests in `/test/` directory and then run `mocha` from console. Since Suit is just a wrapper you can utilize any mocha options and arguments you want. For more info visit Mocha's [documentation](https://github.com/mochajs/mocha/wiki).
+
+
 
 ## Documentation && Translation ##
 Since English isn't my native language I'll appreciate any pull requests with REAME corrections as well as request with translations to any other languages.
