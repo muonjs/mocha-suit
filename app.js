@@ -32,8 +32,8 @@ module.exports = function(name,ctx,f) {
 
     name = name || "";
 
-    var TestSuit = function(msg,_ctx){
-        if (this && this instanceof this.suit){
+    var TestSuit = function Suit(msg,_ctx){
+        if (utils.isSuitInstance(this)){
             if (msg instanceof Object) {
                 _ctx = msg;
                 msg = "";
@@ -109,8 +109,8 @@ module.exports = function(name,ctx,f) {
 
         msg = String(msg);
         var Parent = this;
-        var NewSuit = function() {
-            if (this && (this instanceof this.suit)) {
+        var NewSuit = function Suit() {
+            if (utils.isSuitInstance(this)) {
                 Parent.apply(this,arguments);
             }
             else {
