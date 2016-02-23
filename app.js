@@ -95,6 +95,17 @@ module.exports = function(name,ctx,f) {
         };
     });
 
+    TestSuit.with = function(suit){
+        if (!utils.isSuit(suit)) {
+            throw Error("Argument should be Suit class object");
+        }
+        var self = this;
+        SETUP_METHODS.concat(IT_METHODS).concat(THAT_METHODS).forEach(function(method){
+            self[method](suit);
+        });
+        return this;
+    };
+
     TestSuit.extend = function(msg,ctx,f) {
         if (ctx instanceof Function) {
             f = ctx;
