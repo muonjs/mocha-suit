@@ -1,5 +1,7 @@
 'use strict';
 
+global.NormalizeTests();
+
 describe("Suit chaining",function(){
     var mod = require("../../app");
 

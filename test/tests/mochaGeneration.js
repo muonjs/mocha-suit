@@ -1,5 +1,7 @@
 'use strict;'
 
+global.NormalizeTests();
+
 describe("Check mocha methods call",function(){
     var mod = require("../../app");
 

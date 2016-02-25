@@ -1,5 +1,7 @@
 'use strict';
 
+global.NormalizeTests();
+
 describe("Composing Suit.",function(){
     var mod = require("../../app");
 

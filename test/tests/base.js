@@ -1,5 +1,7 @@
 'use strict';
 
+global.NormalizeTests();
+
 describe("Base system test.",function(){
     var mod = require('../../app');
     var run = function(){

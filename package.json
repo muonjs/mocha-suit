@@ -1,6 +1,6 @@
 {
   "name": "mocha-suit",
-  "version": "0.4.0",
+  "version": "0.4.1",
   "description": "Suit for your mocha tests",
   "main": "app.js",
   "scripts": {
@@ -13,8 +13,7 @@
   "keywords": [
     "mocha",
     "tests",
-    "suit",
-    "jasmine"
+    "suit"
   ],
   "author": "Sukharev Kirill <SukharevKirill@gmail.com>",
   "license": "MIT",
@@ -22,11 +21,14 @@
     "url": "https://github.com/muonjs/mocha-suit/issues"
   },
   "homepage": "https://github.com/muonjs/mocha-suit#readme",
+  "dependencies": {
+    "underscore": "^1.8.3"
+  },
   "devDependencies": {
+    "bluebird": "^3.3.1",
     "expect.js": "^0.3.1",
     "mocha": "^2.4.5",
     "should": "^8.2.2",
-    "sinon": "^1.17.3",
-    "underscore": "^1.8.3"
+    "sinon": "^1.17.3"
   }
 }
