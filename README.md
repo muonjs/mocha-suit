@@ -107,7 +107,7 @@ To run tests:
 ```bash
 $ npm test
 ```
-Since `Mocha` is dev dependency of MochaSuit this call envokes *mocha* under `./test/tests` directory with options passed to `./test/mocha.opts`. Alternative way to do the same thing is:
+Since `Mocha` is dev dependency of Mocha Suit this call envokes *mocha* under `./test/tests` directory with options passed to `./test/mocha.opts`. Alternative way to do the same thing is:
 ```bash
 $ mocha -R spec # or whatever reporter you like
 ```
