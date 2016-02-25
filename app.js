@@ -2,9 +2,9 @@
 
 var fRegCheck = /^function\s+\(\S+?\)/;
 var generateDescribe = require("./lib/generate");
-const SETUP_METHODS = generateDescribe.SETUP_METHODS;
-const IT_METHODS = generateDescribe.IT_METHODS;
-const THAT_METHODS = generateDescribe.THAT_METHODS;
+var SETUP_METHODS = generateDescribe.SETUP_METHODS;
+var IT_METHODS = generateDescribe.IT_METHODS;
+var THAT_METHODS = generateDescribe.THAT_METHODS;
 var _ = require("underscore");
 var utils = require("./lib/utils");
 
