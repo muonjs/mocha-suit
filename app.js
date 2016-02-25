@@ -5,8 +5,22 @@ var generateDescribe = require("./lib/generate");
 const SETUP_METHODS = generateDescribe.SETUP_METHODS;
 const IT_METHODS = generateDescribe.IT_METHODS;
 const THAT_METHODS = generateDescribe.THAT_METHODS;
-
+var _ = require("underscore");
 var utils = require("./lib/utils");
+
+_.defaults(global,{
+   describeMethod: "describe",
+   xdescribeMethod: "xdescribe",
+   beforeMethod: "before",
+   beforeEachMethod: "beforeEach",
+   afterMethod: "after",
+   afterEachMethod: "afterEach",
+   itMethod: "it",
+   xitMethod: "xit"
+});
+
+global.thatMethod = global.itMethod;
+global.xthatMethod = global.xitMethod;
 
 module.exports = function(name,ctx,f) {
     if (!global.hasOwnProperty("describe")) {
@@ -44,17 +58,17 @@ module.exports = function(name,ctx,f) {
             var parents = [];
             var current = this.suit;
 
-            while(current instanceof Function) {
+            while(utils.isSuit(current)) {
                 parents.unshift(current);
                 current = current.parent;
             }
 
             var ctx = this;
-            var That = {__it: [], __xit: []};
+            var That = {__that: [], __xthat: []};
             parents.forEach(function(Suit){
                 utils.extend(ctx,Suit.contextData);
-                That.__it = That.__it.concat(Suit.__that || []);
-                That.__xit = That.__xit.concat(Suit.__xthat || []);
+                That.__that = That.__that.concat(Suit.__that || []);
+                That.__xthat = That.__xthat.concat(Suit.__xthat || []);
             });
 
             utils.extend(ctx,_ctx);

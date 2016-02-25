@@ -1,6 +1,6 @@
 {
   "name": "mocha-suit",
-  "version": "0.3.5",
+  "version": "0.4.0",
   "description": "Suit for your mocha tests",
   "main": "app.js",
   "scripts": {
@@ -21,5 +21,12 @@
   "bugs": {
     "url": "https://github.com/muonjs/mocha-suit/issues"
   },
-  "homepage": "https://github.com/muonjs/mocha-suit#readme"
+  "homepage": "https://github.com/muonjs/mocha-suit#readme",
+  "devDependencies": {
+    "expect.js": "^0.3.1",
+    "mocha": "^2.4.5",
+    "should": "^8.2.2",
+    "sinon": "^1.17.3",
+    "underscore": "^1.8.3"
+  }
 }
