@@ -102,8 +102,22 @@ Mocha Suit depends on Mocha. So you need to initialize Mocha before run your tes
 ## Documentation && Translation ##
 Since English isn't my native language I'll appreciate any pull requests with REAME corrections as well as request with translations to any other languages.
 
-## Contribution ##
-Also all other pull requests will be appreciated =).
+## Test && Contribution ##
+To run tests:
+```bash
+$ npm test
+```
+Since `Mocha` is dev dependency of MochaSuit this call envokes *mocha* under `./test/tests` directory with options passed to `./test/mocha.opts`. Alternative way to do the same thing is:
+```bash
+$ mocha -R spec # or whatever reporter you like
+```
+
+For Jasmine's fans there is `./spec/support/jasmine.conf` tuning Jasmine to run the same tests inside of alternative environment.
+```bash
+$ jasmine
+```
+
+All pull requests are welcomed.
 
 ## License ##
-This project is distributed under MIT license. 2016.
+This project is distributed under [MIT license](https://github.com/muonjs/mocha-suit/blob/master/LICENSE). 2016.
