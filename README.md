@@ -68,7 +68,7 @@ describe("Top test suit",function() {
     })
 });
 ```
-Mocha Suit is complient to Mocha. So `this` is always Mocha's `this` object which is accessible inside of all Mocha's setup and test methods when you run them in usual manner.  Also you can use `done` argument to call methods asyncronously (or return a Promise object).
+Mocha Suit is complient to Mocha. So `this` is always Mocha's `this` object which is accessible inside of all Mocha's setup and test methods when you run them in usual manner.  Also you can use `done` argument to call methods asyncronously (or return Promise object).
 
 ```js
 Suit.before(function(done) {
