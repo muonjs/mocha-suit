@@ -97,13 +97,41 @@ Is that all? Nope. Welcome to the [wiki](https://github.com/muonjs/mocha-suit/wi
 
 Mocha Suit depends on Mocha. So you need to initialize Mocha before run your tests. Simplest way is to put your tests in `/test/` directory and then run `mocha` from console. Since Suit is just a wrapper you can utilize any mocha options and arguments you want. For more info visit Mocha's [documentation](https://github.com/mochajs/mocha/wiki).
 
+## Jasmine ##
+Are you [Jasmine](http://jasmine.github.io/) lover and Mocha hater? Superficial difference between Mocha and Jasmine is setup/teardown methods naming. Specifically `before` is known as `beforeAll` and `after` is known as `afterAll`. Mocha Suit suports both versions. Since Mocha Suit is barely wrapper it has no matter what you do inside of your test code or witch helper library (for ex. spies, assertions or matchers) you use. So next one code should be ok:
+```js
+var MochaSuit = require("mocha-suit");
+var Suit = MochaSuit("Test suit");
+Suit.before(function() { ... }); // won't have effect in jasmine
+Suit.beforeAll(function() { ... }); // won't have effect in mocha
+Suit.it("test it!",function() { ... });
+Suit.after(function() { ... }); // won't have effect in jasmine
+Suit.afterAll(function() { ... }); // won't have effect in mocha
+new Suit();
+```
+Every time test is generated Suit checks whether method exists in global object or not. If `beforeAll` is absent it won't run. And vice versa.
 
+You can ask me: "Why is library name *Mocha* Suit? Why not *Jasmine* Suit or merely *Test* Suit?". The answer is I don't know Jasmine so well as Mocha. So I suppose some pitfalls may exist. I'll appreciate any help to make Suit to be more universal.
+
+## Test && Contribution ##
+To run tests:
+```bash
+$ npm test
+```
+Since `Mocha` is dev dependency of Mocha Suit this call envokes *mocha* under `./test/tests` directory with options passed to `./test/mocha.opts`. Alternative way to do the same thing is:
+```bash
+$ mocha -R spec # or whatever reporter you like
+```
+
+For Jasmine's fans there is `./spec/support/jasmine.conf` tuning Jasmine to run the same tests inside of alternative environment.
+```bash
+$ jasmine
+```
+
+Of course all pull requests are welcomed.
 
 ## Documentation && Translation ##
 Since English isn't my native language I'll appreciate any pull requests with REAME corrections as well as request with translations to any other languages.
 
-## Contribution ##
-Also all other pull requests will be appreciated =).
-
 ## License ##
-This project is distributed under MIT license. 2016.
+This project is distributed under [MIT license](https://github.com/muonjs/mocha-suit/blob/master/LICENSE). 2016.
