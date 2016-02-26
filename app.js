@@ -5,6 +5,8 @@ var generateDescribe = require("./lib/generate");
 var SETUP_METHODS = generateDescribe.SETUP_METHODS;
 var IT_METHODS = generateDescribe.IT_METHODS;
 var THAT_METHODS = generateDescribe.THAT_METHODS;
+var SET_METHODS = generateDescribe.SET_METHODS;
+var REPLACE_METHOD = generateDescribe.REPLACE_METHOD;
 var _ = require("underscore");
 var utils = require("./lib/utils");
 
@@ -23,6 +25,10 @@ _.defaults(global,{
 
 global.thatMethod = global.itMethod;
 global.xthatMethod = global.xitMethod;
+global.setBeforeAllMethod = global.beforeAllMethod;
+global.setBeforeMethod = global.beforeMethod;
+global.setAfterAllMethod = global.afterAllMethod;
+global.setAfterMethod = global.afterMethod;
 
 module.exports = function(name,ctx,f) {
 
@@ -69,16 +75,27 @@ module.exports = function(name,ctx,f) {
             }
 
             var ctx = this;
-            var That = {__that: [], __xthat: []};
+            var modifiers = {
+                that: {__that: [], __xthat: []},
+                setBefore: { __setBeforeAll: [], __setBefore: []},
+                setAfter: { __setAfterAll: [], __setAfter: []},
+                replaceWith: []
+            };
+
             parents.forEach(function(Suit){
                 utils.extend(ctx,Suit.contextData);
-                That.__that = That.__that.concat(Suit.__that || []);
-                That.__xthat = That.__xthat.concat(Suit.__xthat || []);
+                modifiers.that.__that = modifiers.that.__that.concat(Suit.__that || []);
+                modifiers.that.__xthat = modifiers.that.__xthat.concat(Suit.__xthat || []);
+                modifiers.setBefore.__setBefore = (Suit.__setBefore || []).concat(modifiers.setBefore.__setBefore);
+                modifiers.setBefore.__setBeforeAll = (Suit.__setBeforeAll || []).concat(modifiers.setBefore.__setBeforeAll);
+                modifiers.setAfter.__setAfter = modifiers.setAfter.__setAfter.concat(Suit.__setAfter || []);
+                modifiers.setAfter.__setAfterAll = modifiers.setAfter.__setAfterAll.concat(Suit.__setAfterAll || []);
+                modifiers.replaceWith = (Suit.__replaceWith || []).concat(modifiers.replaceWith);
             });
 
             utils.extend(ctx,_ctx);
 
-            generateDescribe(parents,ctx,utils.dotEndString(msg),That);
+            generateDescribe(parents,ctx,utils.dotEndString(msg),modifiers);
         } else {
             utils.generateObject(TestSuit,arguments);
         }
@@ -114,6 +131,30 @@ module.exports = function(name,ctx,f) {
         };
     });
 
+    SET_METHODS.forEach(function(callName) {
+        TestSuit[callName] = function(suit,f){
+            if (!utils.isSuit(suit)) {
+                throw new Error(callName+" first argument should be suit");
+            }
+            if (!_.isFunction(f)) {
+                throw new Error(callName+" second argument should be function");
+            }
+            utils.pushNewCall(this,callName, { targetSuit: suit, fcall: f, useDone: fRegCheck.test(f) });
+            return this;
+        };
+    });
+
+    TestSuit.replaceWith = function(suit,newSuit){
+        if (!utils.isSuit(suit)) {
+            throw new Error("replaceWith first argument should be suit");
+        }
+        if (!utils.isSuit(newSuit)) {
+            throw new Error("replaceWith second argument should be suit");
+        }
+        utils.pushNewCall(this,"replaceWith", { targetSuit: suit, newSuit: newSuit });
+        return this;
+    };
+
     TestSuit.with = function(suit){
         if (!utils.isSuit(suit)) {
             throw Error("Argument should be Suit class object");
@@ -137,7 +178,6 @@ module.exports = function(name,ctx,f) {
             throw Error("Third argument should be function if set");
         }
 
-        msg = String(msg);
         var Parent = this;
         var NewSuit = function Suit() {
             if (utils.isSuitInstance(this)) {

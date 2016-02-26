@@ -2,7 +2,7 @@
 
 global.NormalizeTests();
 
-const DELAY = 500;
+const DELAY = 50;
 var Promise = require("bluebird");
 
 describe("Asynchronous methods.",function(){

@@ -14,8 +14,9 @@ describe("Base system test.",function(){
                 "after","afterEach","afterAll",
                 "it","xit",
                 "that","xthat",
-                "with"
-                //"putBefore","putAfter"
+                "with","replaceWith",
+                "setBefore","setAfter",
+                "setBeforeAll","setAfterAll"
             ].forEach(function(prop){
                 self.suit.should.have.property(prop).which.is.a.Function();
             });
@@ -26,7 +27,6 @@ describe("Base system test.",function(){
             [
                 "before","beforeEach","beforeAll",
                 "after","afterEach","afterAll"
-                //"putBefore","putAfter"
             ].forEach(function(prop){
                 var ret = self.suit[prop](function(){});
                 ret.should.be.eql(self.suit);
@@ -40,6 +40,26 @@ describe("Base system test.",function(){
                 "that","xthat"
             ].forEach(function(prop){
                 var ret = self.suit[prop]("msg",function(){});
+                ret.should.be.eql(self.suit);
+            });
+        });
+
+        it("setBefore/setAfter methods should return suit itself.",function(){
+            var self = this;
+            [
+                "setBefore","setAfter","setBeforeAll","setAfterAll"
+            ].forEach(function(prop){
+                var ret = self.suit[prop](self.suit,function(){});
+                ret.should.be.eql(self.suit);
+            });
+        });
+
+        it("with/replace methods should return suit itself.",function(){
+            var self = this;
+            [
+                "with","replaceWith"
+            ].forEach(function(prop){
+                var ret = self.suit[prop](self.suit,self.suit);
                 ret.should.be.eql(self.suit);
             });
         });
