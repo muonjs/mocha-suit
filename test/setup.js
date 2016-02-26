@@ -8,15 +8,17 @@ var _ = require("underscore");
 
 var generateMochaMethod = require("./spy");
 
-var mochaMethods = [
+var testMethods = [
     "describe",
     "xdescribe",
     "before",
+    "beforeAll",
     "beforeEach",
     "it",
     "xit",
     "after",
-    "afterEach"
+    "afterEach",
+    "afterAll"
 ];
 
 var substitutedMethods = {};
@@ -25,9 +27,11 @@ _.defaults(global,{
     describeMethod: "test_describe",
     xdescribeMethod: "test_xdescribe",
     beforeMethod: "test_before",
+    beforeAllMethod: "test_beforeAll",
     beforeEachMethod: "test_beforeEach",
     afterMethod: "test_after",
     afterEachMethod: "test_afterEach",
+    afterAllMethod: "test_afterAll",
     itMethod: "test_it",
     xitMethod: "test_xit"
 });
@@ -43,24 +47,24 @@ global.NormalizeTests = function(){
     }
 }
 
-mochaMethods.forEach(function(method){
+testMethods.forEach(function(method){
     substitutedMethods[method] = global["test_"+method] = generateMochaMethod();
 });
 
 global.ResetSpyMethods = function(){
-    mochaMethods.forEach(function(method){
+    testMethods.forEach(function(method){
         substitutedMethods[method].reset();
     });
 };
 
 global.ResetSpyMethods = function(){
-    mochaMethods.forEach(function(method){
+    testMethods.forEach(function(method){
         substitutedMethods[method].reset();
     });
 };
 
 global.RunSpyMethods = function(){
-    mochaMethods.forEach(function(method){
+    testMethods.forEach(function(method){
         substitutedMethods[method].run();
     });
 };

@@ -5,7 +5,7 @@ global.NormalizeTests();
 describe("Composing Suit.",function(){
     var mod = require("../../app");
 
-    ["before","beforeEach","after","afterEach"].forEach(function(method){
+    ["before","beforeEach","beforeAll","after","afterAll","afterEach"].forEach(function(method){
         describe(capitalize(method)+".",function(){
             before(ResetSpyMethods);
 
@@ -17,8 +17,10 @@ describe("Composing Suit.",function(){
 
                 this.suit.before(function(){});
                 this.suit.beforeEach(function(){});
+                this.suit.beforeAll(function(){});
                 this.suit.after(function(){});
                 this.suit.afterEach(function(){});
+                this.suit.afterAll(function(){});
                 this.suit.it("",function(){});
                 this.suit.xit("",function(){});
                 this.suit.that("",function(){});
@@ -85,11 +87,17 @@ describe("Composing Suit.",function(){
             this.beforeEachSpy = sinon.spy();
             this.helperSuit.beforeEach(this.beforeEachSpy);
 
+            this.beforeAllSpy = sinon.spy();
+            this.helperSuit.beforeAll(this.beforeAllSpy);
+
             this.afterSpy = sinon.spy();
             this.helperSuit.after(this.afterSpy);
 
             this.afterEachSpy = sinon.spy();
             this.helperSuit.afterEach(this.afterEachSpy);
+
+            this.afterAllSpy = sinon.spy();
+            this.helperSuit.afterAll(this.afterAllSpy);
 
             this.itSpy = sinon.spy();
             this.helperSuit.it("",this.itSpy);
@@ -108,8 +116,10 @@ describe("Composing Suit.",function(){
             this.suit = mod();
             this.suit.before(function(){});
             this.suit.beforeEach(function(){});
+            this.suit.beforeAll(function(){});
             this.suit.after(function(){});
             this.suit.afterEach(function(){});
+            this.suit.afterAll(function(){});
             this.suit.it("",function(){});
             this.suit.xit("",function(){});
             this.suit.that("",function(){});
@@ -129,12 +139,20 @@ describe("Composing Suit.",function(){
             this.beforeEachSpy.called.should.be.true();
         });
 
+        it("beforeAll spy should be called",function(){
+            this.beforeAllSpy.called.should.be.true();
+        });
+
         it("after spy should be called",function(){
             this.afterSpy.called.should.be.true();
         });
 
         it("afterEach spy should be called",function(){
             this.afterEachSpy.called.should.be.true();
+        });
+
+        it("afterAll spy should be called",function(){
+            this.afterAllSpy.called.should.be.true();
         });
 
         it("it spy should be called",function(){

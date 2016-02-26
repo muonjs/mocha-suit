@@ -12,8 +12,10 @@ _.defaults(global,{
    describeMethod: "describe",
    xdescribeMethod: "xdescribe",
    beforeMethod: "before",
+   beforeAllMethod: "beforeAll",
    beforeEachMethod: "beforeEach",
    afterMethod: "after",
+   afterAllMethod: "afterAll",
    afterEachMethod: "afterEach",
    itMethod: "it",
    xitMethod: "xit"
@@ -25,14 +27,6 @@ global.xthatMethod = global.xitMethod;
 module.exports = function(name,ctx,f) {
 
     // Jasmine fallback
-
-    if (global.beforeMethod == "before" && !global.hasOwnProperty("before") && global.hasOwnProperty("beforeAll")) {
-        global.beforeMethod = "beforeAll";
-    }
-
-    if (global.afterMethod == "after" && !global.hasOwnProperty("after") && global.hasOwnProperty("afterAll")) {
-        global.afterMethod = "afterAll";
-    }
 
     if (!global.hasOwnProperty("describe")) {
         throw Error("There is no 'describe' method in your global. Probably mocha isn't running.");

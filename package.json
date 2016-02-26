@@ -13,7 +13,8 @@
   "keywords": [
     "mocha",
     "tests",
-    "suit"
+    "suit",
+    "jasmine"
   ],
   "author": "Sukharev Kirill <SukharevKirill@gmail.com>",
   "license": "MIT",

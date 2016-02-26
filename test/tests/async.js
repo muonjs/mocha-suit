@@ -9,7 +9,7 @@ describe("Asynchronous methods.",function(){
     var mod = require("../../app");
 
     describe("With 'done' argument.",function(){
-        ["before","after","beforeEach","afterEach","it"].forEach(function(method){
+        ["before","after","beforeEach","afterEach","beforeAll","afterAll","it"].forEach(function(method){
             describe(capitalize(method)+".",function(){
 
                 before(ResetSpyMethods);

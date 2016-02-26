@@ -10,8 +10,8 @@ describe("Base system test.",function(){
             self.suit.should.have.property("name","Suit");
             [
                 "extend",
-                "before","beforeEach",
-                "after","afterEach",
+                "before","beforeEach","beforeAll",
+                "after","afterEach","afterAll",
                 "it","xit",
                 "that","xthat",
                 "with"
@@ -24,8 +24,8 @@ describe("Base system test.",function(){
         it("Setup methods should return suit itself.",function(){
             var self = this;
             [
-                "before","beforeEach",
-                "after","afterEach"
+                "before","beforeEach","beforeAll",
+                "after","afterEach","afterAll"
                 //"putBefore","putAfter"
             ].forEach(function(prop){
                 var ret = self.suit[prop](function(){});
