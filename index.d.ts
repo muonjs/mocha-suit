@@ -70,6 +70,7 @@ declare interface MochaSuitFactory {
     setAfter: SetMethod;
     setBeforeAll: SetMethod;
     setAfterAll: SetMethod;
+    [key:string]: MochaSuitFactory | Function | Suit
 }
 
 
