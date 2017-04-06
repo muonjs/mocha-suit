@@ -246,17 +246,17 @@ describe("Modifying suit chain with set/reset methods.",function(){
                 self.afterAllCallStack.push(4);
             });
 
-            this.suit3.replaceWith(this.suit2,this.replacer);
-
             this.suit3.setBefore(this.suit2,function(){
                 self.beforeCallStack.push(21);
-            })
+            });
+
+            this.suit3.replaceWith(this.suit2,this.replacer);
             this.suit3.setBefore(this.replacer,function(){
                 self.beforeCallStack.push(41);
-            })
+            });
             this.suit3.setAfter(this.suit2,function(){
                 self.afterCallStack.push(21);
-            })
+            });
             this.suit3.setAfter(this.replacer,function(){
                 self.afterCallStack.push(41);
             })
