@@ -7,45 +7,50 @@ import * as Promise from "@types/bluebird";
 declare type Suit = { [key:string]: any } & { [key:number]: any };
 declare type TestSet = { testSet: boolean; } & { [key:string]: Suit; }
 
+declare interface DoneMethod {
+    (err?: any): void
+}
+
 declare interface ExtendMethod {
-    (description: string, ctx: Suit, cb?: (this: MochaSuitFactory) => void): MochaSuitFactory
-    (description: string, cb?: (this: MochaSuitFactory) => void): MochaSuitFactory
+    (this: MochaSuitFactory, description: string, ctx: Suit, cb?: (this: MochaSuitFactory) => void): MochaSuitFactory
+    (this: MochaSuitFactory, description: string, cb?: (this: MochaSuitFactory) => void): MochaSuitFactory
 }
 
 declare interface CallBack {
-    (this: MochaSuitFactory, done?: (err?: any) => void): Promise<void> | void;
+    (this: MochaSuitFactory, done?: DoneMethod): Promise<void> | void;
 }
 
 declare interface SetupMethod {
-    (cb: CallBack): MochaSuitFactory;
-    (suit: MochaSuitFactory) : MochaSuitFactory;
+    (this: MochaSuitFactory, cb: CallBack): MochaSuitFactory;
+    (this: MochaSuitFactory, suit: MochaSuitFactory) : MochaSuitFactory;
 }
 
 declare interface TeardownMethod {
-    (cb: CallBack) : MochaSuitFactory;
-    (suit: MochaSuitFactory) : MochaSuitFactory;
+    (this: MochaSuitFactory, cb: CallBack) : MochaSuitFactory;
+    (this: MochaSuitFactory, suit: MochaSuitFactory) : MochaSuitFactory;
 }
 
 declare interface TestMethod {
-    (caseDescription: string, cb: CallBack) : MochaSuitFactory;
-    (suit: MochaSuitFactory) : MochaSuitFactory;
+    (this: MochaSuitFactory, caseDescription: string, cb: CallBack) : MochaSuitFactory;
+    (this: MochaSuitFactory, suit: MochaSuitFactory) : MochaSuitFactory;
 }
 
 declare interface WithMethod {
-    (suit: MochaSuitFactory) : MochaSuitFactory;
+    (this: MochaSuitFactory, suit: MochaSuitFactory) : MochaSuitFactory;
 }
 
 declare interface ReplaceMethod {
-    (oldSuit: MochaSuitFactory, newSuit: MochaSuitFactory) : MochaSuitFactory;
+    (this: MochaSuitFactory, oldSuit: MochaSuitFactory, newSuit: MochaSuitFactory) : MochaSuitFactory;
 }
 
 declare interface SetMethod {
-    (suit: MochaSuitFactory, cb: CallBack) : MochaSuitFactory;
+    (this: MochaSuitFactory, suit: MochaSuitFactory, cb: CallBack) : MochaSuitFactory;
 }
 
 declare class MochaSuitFactory {
     constructor()
-    suit: Suit
+    suit: Suit,
+    timeout: (timeout: number) => void;
 }
 
 declare interface MochaSuitFactory {
