@@ -10,26 +10,6 @@ var REPLACE_METHOD = generateDescribe.REPLACE_METHOD;
 var _ = require("underscore");
 var utils = require("./lib/utils");
 
-_.defaults(global,{
-   describeMethod: "describe",
-   xdescribeMethod: "xdescribe",
-   beforeMethod: "before",
-   beforeAllMethod: "beforeAll",
-   beforeEachMethod: "beforeEach",
-   afterMethod: "after",
-   afterAllMethod: "afterAll",
-   afterEachMethod: "afterEach",
-   itMethod: "it",
-   xitMethod: "xit"
-});
-
-global.thatMethod = global.itMethod;
-global.xthatMethod = global.xitMethod;
-global.setBeforeAllMethod = global.beforeAllMethod;
-global.setBeforeMethod = global.beforeMethod;
-global.setAfterAllMethod = global.afterAllMethod;
-global.setAfterMethod = global.afterMethod;
-
 module.exports = function(name,ctx,f) {
 
     // Jasmine fallback

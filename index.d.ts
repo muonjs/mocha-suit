@@ -49,7 +49,7 @@ declare interface SetMethod {
 
 declare class MochaSuitFactory {
     constructor()
-    suit: Suit,
+    suit: Suit;
     timeout: (timeout: number) => void;
 }
 

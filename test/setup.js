@@ -1,8 +1,11 @@
 'use strict';
 
-global.should = require("should");
+require("should");
+global.should.config.checkProtoEql = false;
 global.expect = require("expect.js");
 global.sinon = require("sinon");
+
+var method_names = require("../lib/method_names");
 
 var _ = require("underscore");
 
@@ -23,7 +26,7 @@ var testMethods = [
 
 var substitutedMethods = {};
 
-_.defaults(global,{
+method_names.renameMethod({
     describeMethod: "test_describe",
     xdescribeMethod: "test_xdescribe",
     beforeMethod: "test_before",
