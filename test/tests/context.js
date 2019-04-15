@@ -2,7 +2,9 @@
 
 global.NormalizeTests();
 
-describe("Context generation",function(){
+var MSG = "Context generation.";
+
+describe(MSG,function(){
     var mod = require("../../app");
 
     describe("With generator call.",function(){

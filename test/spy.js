@@ -1,6 +1,6 @@
 'use strict';
 
-var fRegCheck = /^function\s+\(\S+?\)/;
+var fRegCheck = /^function\s*\S*?\s*\(\S+?\)/;
 
 module.exports = function(){
     var args = [];
@@ -48,7 +48,7 @@ module.exports = function(){
     };
 
     method.isCalled = function(i){
-        return called[i] == true;
+        return called[i] === true;
     };
 
     method.calledWith = function(i){

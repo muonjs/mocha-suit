@@ -2,7 +2,9 @@
 
 global.NormalizeTests();
 
-describe("Test running",function(){
+var MSG = "Test running.";
+
+describe(MSG,function(){
     var mod = require("../../app");
 
     var createSuit = function(){
@@ -48,7 +50,7 @@ describe("Test running",function(){
     describe("With simple call under array of context objects",function(){
         before(ResetSpyMethods);
 
-        const TIMES = 10;
+        var TIMES = 10;
 
         createSuit();
 
@@ -71,7 +73,7 @@ describe("Test running",function(){
     describe("With simple call with testSet",function(){
         before(ResetSpyMethods);
 
-        const TIMES = 10;
+        var TIMES = 10;
 
         createSuit();
 

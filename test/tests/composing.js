@@ -2,7 +2,9 @@
 
 global.NormalizeTests();
 
-describe("Composing Suit.",function(){
+var MSG = "Composing Suit.";
+
+describe(MSG,function(){
     var mod = require("../../app");
 
     ["before","beforeEach","beforeAll","after","afterAll","afterEach"].forEach(function(method){

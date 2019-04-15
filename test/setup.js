@@ -48,7 +48,7 @@ global.NormalizeTests = function(){
         global.before = global.beforeAll;
         global.after = global.afterAll;
     }
-}
+};
 
 testMethods.forEach(function(method){
     substitutedMethods[method] = global["test_"+method] = generateMochaMethod();

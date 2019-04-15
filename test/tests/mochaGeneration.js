@@ -2,7 +2,9 @@
 
 global.NormalizeTests();
 
-describe("Check mocha methods call",function(){
+var MSG = "Check mocha methods call.";
+
+describe(MSG,function(){
     var mod = require("../../app");
 
     describe("Describe.",function(){

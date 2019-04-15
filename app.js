@@ -1,6 +1,5 @@
 'use strict';
 
-var fRegCheck = /^function\s+\(\S+?\)/;
 var generateDescribe = require("./lib/generate");
 var SETUP_METHODS = generateDescribe.SETUP_METHODS;
 var IT_METHODS = generateDescribe.IT_METHODS;
@@ -93,7 +92,7 @@ module.exports = function(name,ctx,f) {
             if (utils.isSuit(f)) {
                 utils.pushNewCall(this,callName, { suit: f });
             } else {
-                utils.pushNewCall(this,callName, { fcall: f, useDone: fRegCheck.test(f) });
+                utils.pushNewCall(this,callName, { fcall: f });
             }
             return this;
         };
@@ -105,7 +104,7 @@ module.exports = function(name,ctx,f) {
                 utils.pushNewCall(this,callName, { suit: msg });
             } else {
                 msg = String(msg);
-                utils.pushNewCall(this,callName, { msg: msg, fcall: f, useDone: fRegCheck.test(f) });
+                utils.pushNewCall(this,callName, { msg: msg, fcall: f });
             }
             return this;
         };
@@ -119,7 +118,7 @@ module.exports = function(name,ctx,f) {
             if (!_.isFunction(f)) {
                 throw new Error(callName+" second argument should be function");
             }
-            utils.pushNewCall(this,callName, { targetSuit: suit, fcall: f, useDone: fRegCheck.test(f) });
+            utils.pushNewCall(this,callName, { targetSuit: suit, fcall: f });
             return this;
         };
     });

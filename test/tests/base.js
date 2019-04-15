@@ -2,7 +2,9 @@
 
 global.NormalizeTests();
 
-describe("Base system test.",function(){
+var MSG = "Base system test.";
+
+describe(MSG,function(){
     var mod = require('../../app');
     var run = function(){
         it("Suit should have all base factory methods.",function(){

@@ -2,10 +2,12 @@
 
 global.NormalizeTests();
 
-const DELAY = 50;
+var DELAY = 10;
 var Promise = require("bluebird");
 
-describe("Asynchronous methods.",function(){
+var MSG = "Asynchronous methods.";
+
+describe(MSG,function(){
     var mod = require("../../app");
 
     describe("With 'done' argument.",function(){
@@ -19,7 +21,7 @@ describe("Asynchronous methods.",function(){
                     this.suit = mod();
                     this.callOrder = [];
 
-                    var call1 = function(done){
+                    var call1 = function call1(done){
                         setTimeout(function(){
                             self.callOrder.push(1);
                             done();
@@ -30,7 +32,7 @@ describe("Asynchronous methods.",function(){
                         self.callOrder.push(2);
                     };
 
-                    if (method == "it") {
+                    if (method === "it") {
                         this.suit[method]("",call1);
                         this.suit[method]("",call2);
                     } else {
@@ -74,7 +76,7 @@ describe("Asynchronous methods.",function(){
                         return Promise.delay(DELAY);
                     };
 
-                    if (method == "it") {
+                    if (method === "it") {
                         this.suit[method]("",call);
                     } else {
                         this.suit[method](call);

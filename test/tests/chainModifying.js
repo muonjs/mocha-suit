@@ -2,7 +2,9 @@
 
 NormalizeTests();
 
-describe("Modifying suit chain with set/reset methods.",function(){
+var MSG = "Modifying suit chain with set/reset methods.";
+
+describe(MSG,function(){
     var mod = require("../../app");
 
     describe("Normal chain execution check.",function(){

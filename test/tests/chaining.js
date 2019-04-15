@@ -2,7 +2,9 @@
 
 global.NormalizeTests();
 
-describe("Suit chaining",function(){
+var MSG = "Suit chaining.";
+
+describe(MSG,function(){
     var mod = require("../../app");
 
     before(ResetSpyMethods);
