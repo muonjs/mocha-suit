@@ -88,59 +88,59 @@ module.exports = function(name,ctx,f) {
     });
 
     SETUP_METHODS.forEach(function(callName){
-        TestSuit[callName] = function(f) {
-            if (utils.isSuit(f)) {
-                utils.pushNewCall(this,callName, { suit: f });
+        TestSuit[callName] = function(a,b) {
+            if (utils.isSuit(a)) {
+                utils.pushNewCall(this,callName, { suit: a, args: b });
             } else {
-                utils.pushNewCall(this,callName, { fcall: f });
+                utils.pushNewCall(this,callName, { fcall: a });
             }
             return this;
         };
     });
 
     IT_METHODS.concat(THAT_METHODS).forEach(function(callName){
-        TestSuit[callName] = function(msg,f) {
-            if (utils.isSuit(msg)) {
-                utils.pushNewCall(this,callName, { suit: msg });
+        TestSuit[callName] = function(a,b) {
+            if (utils.isSuit(a)) {
+                utils.pushNewCall(this,callName, { suit: a, args: b });
             } else {
-                msg = String(msg);
-                utils.pushNewCall(this,callName, { msg: msg, fcall: f });
+                a = String(a);
+                utils.pushNewCall(this,callName, { msg: a, fcall: b });
             }
             return this;
         };
     });
 
     SET_METHODS.forEach(function(callName) {
-        TestSuit[callName] = function(suit,f){
+        TestSuit[callName] = function(suit,f, args){
             if (!utils.isSuit(suit)) {
                 throw new Error(callName+" first argument should be suit");
             }
             if (!_.isFunction(f)) {
                 throw new Error(callName+" second argument should be function");
             }
-            utils.pushNewCall(this,callName, { targetSuit: suit, fcall: f });
+            utils.pushNewCall(this,callName, { targetSuit: suit, fcall: f, args: args });
             return this;
         };
     });
 
-    TestSuit.replaceWith = function(suit,newSuit){
+    TestSuit.replaceWith = function(suit,newSuit,args){
         if (!utils.isSuit(suit)) {
             throw new Error("replaceWith first argument should be suit");
         }
         if (!utils.isSuit(newSuit)) {
             throw new Error("replaceWith second argument should be suit");
         }
-        utils.pushNewCall(this,"replaceWith", { targetSuit: suit, newSuit: newSuit });
+        utils.pushNewCall(this,"replaceWith", { targetSuit: suit, newSuit: newSuit, args: args });
         return this;
     };
 
-    TestSuit.with = function(suit){
+    TestSuit.with = function(suit,args){
         if (!utils.isSuit(suit)) {
             throw Error("Argument should be Suit class object");
         }
         var self = this;
         SETUP_METHODS.concat(IT_METHODS).concat(THAT_METHODS).forEach(function(method){
-            self[method](suit);
+            self[method](suit,args);
         });
         return this;
     };

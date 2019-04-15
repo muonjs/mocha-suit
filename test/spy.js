@@ -2,7 +2,7 @@
 
 var fRegCheck = /^function\s*\S*?\s*\(\S+?\)/;
 
-module.exports = function(){
+module.exports = function(name){
     var args = [];
     var ret = [];
     var called = [];
@@ -20,14 +20,13 @@ module.exports = function(){
                     return;
                 }
                 args[i].forEach(function(arg){
+                    // console.log(1,(arg || "").toString(),);
                     if (arg instanceof Function) {
                         if (fRegCheck.test(arg.toString())) {
                             done[i] = function(){
                                 done[i].called = true;
                             };
-                            setTimeout(function() {
-                                ret[i] = arg.call(ctx,done[i]);
-                            },1);
+                            ret[i] = arg.call(ctx,done[i]);
                         } else {
                             done[i] = null;
                             ret[i] = arg.call(ctx);

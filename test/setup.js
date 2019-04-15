@@ -51,7 +51,7 @@ global.NormalizeTests = function(){
 };
 
 testMethods.forEach(function(method){
-    substitutedMethods[method] = global["test_"+method] = generateMochaMethod();
+    substitutedMethods[method] = global["test_"+method] = generateMochaMethod("test_"+method);
 });
 
 global.ResetSpyMethods = function(){
