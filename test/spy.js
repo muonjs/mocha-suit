@@ -7,6 +7,7 @@ module.exports = function(){
     var ret = [];
     var called = [];
     var done = [];
+
     var method = function(){
         args.push([].slice.call(arguments));
     };
@@ -24,7 +25,9 @@ module.exports = function(){
                             done[i] = function(){
                                 done[i].called = true;
                             };
-                            ret[i] = arg.call(ctx,done[i]);
+                            setTimeout(function() {
+                                ret[i] = arg.call(ctx,done[i]);
+                            },1);
                         } else {
                             done[i] = null;
                             ret[i] = arg.call(ctx);

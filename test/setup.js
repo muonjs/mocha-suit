@@ -60,12 +60,6 @@ global.ResetSpyMethods = function(){
     });
 };
 
-global.ResetSpyMethods = function(){
-    testMethods.forEach(function(method){
-        substitutedMethods[method].reset();
-    });
-};
-
 global.RunSpyMethods = function(){
     testMethods.forEach(function(method){
         substitutedMethods[method].run();

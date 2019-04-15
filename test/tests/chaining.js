@@ -7,8 +7,6 @@ var MSG = "Suit chaining.";
 describe(MSG,function(){
     var mod = require("../../app");
 
-    before(ResetSpyMethods);
-
     var setMethods = function(s) {
         s.before(function(){});
         s.it("",function(){});
@@ -45,4 +43,6 @@ describe(MSG,function(){
         // xit from targetSuit, xit from targetHelperSuit
         test_xit.calledTimes().should.be.eql(6);
     });
+
+    after(ResetSpyMethods);
 });

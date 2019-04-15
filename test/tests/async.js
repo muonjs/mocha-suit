@@ -13,9 +13,6 @@ describe(MSG,function(){
     describe("With 'done' argument.",function(){
         ["before","after","beforeEach","afterEach","beforeAll","afterAll","it"].forEach(function(method){
             describe(capitalize(method)+".",function(){
-
-                before(ResetSpyMethods);
-
                 before(function() {
                     var self = this;
                     this.suit = mod();
@@ -59,6 +56,8 @@ describe(MSG,function(){
                     expect(doneMethod).to.be.ok();
                     expect(doneMethod.called).to.be.ok();
                 });
+
+                after(ResetSpyMethods);
             });
         });
     });
@@ -66,9 +65,6 @@ describe(MSG,function(){
     describe("With Promises",function(){
         ["before","after","beforeEach","afterEach","it"].forEach(function(method){
             describe(capitalize(method)+".",function(){
-
-                before(ResetSpyMethods);
-
                 before(function() {
                     this.suit = mod();
 
@@ -98,6 +94,8 @@ describe(MSG,function(){
                     expect(returned.then).to.be.ok();
                     returned.then.should.be.Function();
                 });
+
+                after(ResetSpyMethods);
             });
         });
     });

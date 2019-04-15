@@ -16,8 +16,6 @@ describe(MSG,function(){
     };
 
     describe("With new",function(){
-        before(ResetSpyMethods);
-
         createSuit();
 
         before(function(){
@@ -29,11 +27,11 @@ describe(MSG,function(){
         it("spy should be called",function(){
             this.spy.called.should.be.true();
         });
+
+        after(ResetSpyMethods);
     });
 
     describe("With simple call",function(){
-        before(ResetSpyMethods);
-
         createSuit();
 
         before(function(){
@@ -45,11 +43,11 @@ describe(MSG,function(){
         it("spy should be called",function(){
             this.spy.called.should.be.true();
         });
+
+        after(ResetSpyMethods);
     });
 
     describe("With simple call under array of context objects",function(){
-        before(ResetSpyMethods);
-
         var TIMES = 10;
 
         createSuit();
@@ -68,11 +66,11 @@ describe(MSG,function(){
             this.spy.called.should.be.true();
             global.test_it.calledTimes().should.be.eql(TIMES);
         });
+
+        after(ResetSpyMethods);
     });
 
     describe("With simple call with testSet",function(){
-        before(ResetSpyMethods);
-
         var TIMES = 10;
 
         createSuit();
@@ -92,5 +90,7 @@ describe(MSG,function(){
             this.spy.called.should.be.true();
             global.test_it.calledTimes().should.be.eql(TIMES);
         });
+
+        after(ResetSpyMethods);
     });
 });
