@@ -2,8 +2,6 @@
 // Project: Mocha Suit
 // Definitions by: Sukharev Kirill <SukharevKirill@gmail.com>
 
-import * as Promise from "@types/bluebird";
-
 declare type Suit = { [key:string]: any } & { [key:number]: any };
 declare type TestSet = { testSet: boolean; } & { [key:string]: Suit; }
 

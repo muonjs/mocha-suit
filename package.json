@@ -1,6 +1,6 @@
 {
   "name": "mocha-suit",
-  "version": "0.7.0",
+  "version": "0.7.1",
   "description": "Suit for your mocha tests",
   "main": "app.js",
   "scripts": {
@@ -23,7 +23,6 @@
   },
   "homepage": "https://github.com/muonjs/mocha-suit#readme",
   "dependencies": {
-    "@types/bluebird": "3.5.20",
     "underscore": "^1.8.3"
   },
   "types": "./mocha-suit.d.ts",
