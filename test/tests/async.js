@@ -5,9 +5,7 @@ global.NormalizeTests();
 var DELAY = 10;
 var Promise = require("bluebird");
 
-var MSG = "Asynchronous methods.";
-
-describe(MSG,function(){
+describe("Asynchronous methods.",function(){
     var mod = require("../../app");
 
     describe("With 'done' argument.",function(){

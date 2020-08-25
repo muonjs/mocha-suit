@@ -9,7 +9,7 @@ var REPLACE_METHOD = generateDescribe.REPLACE_METHOD;
 var _ = require("underscore");
 var utils = require("./lib/utils");
 
-module.exports = function(name,ctx,f) {
+var Module = function(name,ctx,f) {
 
     // Jasmine fallback
 
@@ -46,29 +46,24 @@ module.exports = function(name,ctx,f) {
             msg = msg || "";
 
             var parents = [];
-            var current = this.suit;
+            var CurrentSuit = this[utils.SUIT_PROPERTY];
+            var ctx = utils.getSuitContextObject(CurrentSuit,{});
 
-            while(utils.isSuit(current)) {
-                parents.unshift(current);
-                current = current.parent;
+            while(utils.isSuit(CurrentSuit)) {
+                parents.unshift(CurrentSuit);
+                CurrentSuit = CurrentSuit.parent;
             }
 
-            var ctx = this;
             var modifiers = {
-                that: {__that: [], __xthat: []},
-                setBefore: { __setBeforeAll: [], __setBefore: []},
-                setAfter: { __setAfterAll: [], __setAfter: []},
+                insertAbove: [],
+                insertBelow: [],
                 replaceWith: []
             };
 
             parents.forEach(function(Suit){
                 utils.extend(ctx,Suit.contextData);
-                modifiers.that.__that = modifiers.that.__that.concat(Suit.__that || []);
-                modifiers.that.__xthat = modifiers.that.__xthat.concat(Suit.__xthat || []);
-                modifiers.setBefore.__setBefore = (Suit.__setBefore || []).concat(modifiers.setBefore.__setBefore);
-                modifiers.setBefore.__setBeforeAll = (Suit.__setBeforeAll || []).concat(modifiers.setBefore.__setBeforeAll);
-                modifiers.setAfter.__setAfter = modifiers.setAfter.__setAfter.concat(Suit.__setAfter || []);
-                modifiers.setAfter.__setAfterAll = modifiers.setAfter.__setAfterAll.concat(Suit.__setAfterAll || []);
+                modifiers.insertAbove = (Suit.__insertAbove || []).concat(modifiers.insertAbove);
+                modifiers.insertBelow = modifiers.insertBelow.concat(Suit.__insertBelow || []);
                 modifiers.replaceWith = (Suit.__replaceWith || []).concat(modifiers.replaceWith);
             });
 
@@ -111,14 +106,14 @@ module.exports = function(name,ctx,f) {
     });
 
     SET_METHODS.forEach(function(callName) {
-        TestSuit[callName] = function(suit,f, args){
+        TestSuit[callName] = function(suit,newSuit, args){
             if (!utils.isSuit(suit)) {
                 throw new Error(callName+" first argument should be suit");
             }
-            if (!_.isFunction(f)) {
-                throw new Error(callName+" second argument should be function");
+            if (!utils.isSuit(newSuit)) {
+                throw new Error(callName +" second argument should be suit");
             }
-            utils.pushNewCall(this,callName, { targetSuit: suit, fcall: f, args: args });
+            utils.pushNewCall(this,callName, { targetSuit: suit, newSuit: newSuit, args: args });
             return this;
         };
     });
@@ -182,5 +177,35 @@ module.exports = function(name,ctx,f) {
         return NewSuit;
     };
 
+    TestSuit.bindTo = function(obj) {
+        utils.bindTo(this,obj);
+    };
+
+
+    TestSuit.unbind = function() {
+        utils.unbind(this);
+    };
+
+    TestSuit.copy = function() {
+        var NewSuit = Module();
+        var OldSuit = this;
+        Object.keys(OldSuit).forEach(function(key) {
+            (utils.getCallList(OldSuit,key) || []).forEach(function(f) {
+                var newDescriptor = Object.assign({},f);
+                if (newDescriptor.newSuit) {
+                    newDescriptor.newSuit = newDescriptor.newSuit.copy();
+                }
+                if (newDescriptor.suit) {
+                    newDescriptor.suit = newDescriptor.suit.copy();
+                }
+                utils.pushNewCall(NewSuit,key,newDescriptor);
+            });
+        });
+        NewSuit.bindTo(utils.boundTo(OldSuit));
+        return NewSuit;
+    };
+
     return TestSuit;
 };
+
+module.exports = Module;

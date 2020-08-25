@@ -55,142 +55,84 @@ describe(MSG,function(){
         after(ResetSpyMethods);
     });
 
-    [{
-        method: "setBefore",
-        baseMethod: "before"
-    },{
-        method: "setBeforeAll",
-        baseMethod: "beforeAll"
-    }].forEach(function(d){
-        describe(d.method+" execution check.",function() {
-            before(function () {
-                var self = this;
-                this.suit = mod();
-                this.suit2 = this.suit.extend("");
-                this.suit3 = this.suit2.extend("");
-                this.suit4 = this.suit3.extend("");
-                this.suit5 = this.suit4.extend("");
-                this.beforeCallStack = [];
+    describe("insertAbove execution check.",function() {
+        before(function () {
+            var self = this;
+            this.suit = mod();
+            this.suit2 = this.suit.extend("");
+            this.suit3 = this.suit2.extend("");
+            this.suitHelper = mod();
 
-                this.suit[d.baseMethod](function () {
-                    self.beforeCallStack.push(1);
-                });
+            this.beforeCallStack = [];
 
-                this.suit2[d.baseMethod](function () {
-                    self.beforeCallStack.push(2);
-                });
-
-                this.suit3[d.baseMethod](function () {
-                    self.beforeCallStack.push(3);
-                });
-
-                this.suit4[d.baseMethod](function () {
-                    self.beforeCallStack.push(4);
-                });
-
-                this.suit5[d.baseMethod](function () {
-                    self.beforeCallStack.push(5);
-                });
-
-                this.suit3[d.method](this.suit2, function () {
-                    self.beforeCallStack.push(31);
-                });
-
-                // not setBefore calls are not properly ordered
-
-                this.suit5[d.method](this.suit2, function () {
-                    self.beforeCallStack.push(51);
-                });
-
-                this.suit4[d.method](this.suit2, function () {
-                    self.beforeCallStack.push(41);
-                });
-                this.suit4[d.method](this.suit2, function () {
-                    self.beforeCallStack.push(42);
-                });
+            this.suitHelper.before(function() {
+                self.beforeCallStack.push(0);
             });
 
-            before(function () {
-                this.suit5();
+            this.suit.before(function () {
+                self.beforeCallStack.push(1);
             });
 
-            before(RunSpyMethods);
-
-            it("before call stack should have inserted calls before second suit", function () {
-                this.beforeCallStack.should.be.eql([1, 51, 41, 42, 31, 2, 3, 4, 5]);
+            this.suit2.before(function () {
+                self.beforeCallStack.push(2);
             });
 
-            after(ResetSpyMethods);
+            this.suit3.before(function () {
+                self.beforeCallStack.push(3);
+            });
+
+            this.suit3.insertAbove(this.suit2,this.suitHelper);
+
+            this.suit3();
         });
+
+        before(RunSpyMethods);
+
+        it("before call stack should have inserted calls before second suit", function () {
+            this.beforeCallStack.should.be.eql([1, 0, 2, 3]);
+        });
+
+        after(ResetSpyMethods);
     });
 
-    [{
-        method: "setAfter",
-        baseMethod: "after"
-    },{
-        method: "setAfterAll",
-        baseMethod: "afterAll"
-    }].forEach(function(d){
-        describe(d.method+" execution check.",function() {
-            before(function () {
-                var self = this;
-                this.suit = mod();
-                this.suit2 = this.suit.extend("");
-                this.suit3 = this.suit2.extend("");
-                this.suit4 = this.suit3.extend("");
-                this.suit5 = this.suit4.extend("");
-                this.afterCallStack = [];
+    describe("insertBelow execution check.",function() {
+        before(function () {
+            var self = this;
+            this.suit = mod();
+            this.suit2 = this.suit.extend("");
+            this.suit3 = this.suit2.extend("");
+            this.suitHelper = mod();
 
-                this.suit[d.baseMethod](function () {
-                    self.afterCallStack.push(1);
-                });
+            this.beforeCallStack = [];
 
-                this.suit2[d.baseMethod](function () {
-                    self.afterCallStack.push(2);
-                });
-
-                this.suit3[d.baseMethod](function () {
-                    self.afterCallStack.push(3);
-                });
-
-                this.suit4[d.baseMethod](function () {
-                    self.afterCallStack.push(4);
-                });
-
-                this.suit5[d.baseMethod](function () {
-                    self.afterCallStack.push(5);
-                });
-
-                this.suit3[d.method](this.suit2, function () {
-                    self.afterCallStack.push(31);
-                });
-
-                // not setBefore calls are not properly ordered
-
-                this.suit5[d.method](this.suit2, function () {
-                    self.afterCallStack.push(51);
-                });
-
-                this.suit4[d.method](this.suit2, function () {
-                    self.afterCallStack.push(41);
-                });
-                this.suit4[d.method](this.suit2, function () {
-                    self.afterCallStack.push(42);
-                });
+            this.suitHelper.before(function() {
+                self.beforeCallStack.push(0);
             });
 
-            before(function () {
-                this.suit5();
+            this.suit.before(function () {
+                self.beforeCallStack.push(1);
             });
 
-            before(RunSpyMethods);
-
-            it("after call stack should have inserted calls after second suit", function () {
-                this.afterCallStack.should.be.eql([1, 2, 31, 41, 42, 51, 3, 4, 5]);
+            this.suit2.before(function () {
+                self.beforeCallStack.push(2);
             });
 
-            after(ResetSpyMethods);
+            this.suit3.before(function () {
+                self.beforeCallStack.push(3);
+            });
+
+            this.suit3.insertBelow(this.suit2,this.suitHelper);
+
+            this.suit3();
         });
+
+        before(RunSpyMethods);
+
+        it("before call stack should have inserted calls before second suit", function () {
+            this.beforeCallStack.should.be.eql([1, 2, 0, 3]);
+        });
+
+        after(ResetSpyMethods);
     });
 
     describe("replaceWith execution check.",function() {
@@ -237,29 +179,16 @@ describe(MSG,function(){
             });
 
             this.replacer.before(function () {
-                self.beforeCallStack.push(4);
+                self.beforeCallStack.push(0);
             }).beforeAll(function(){
-                self.beforeAllCallStack.push(4);
+                self.beforeAllCallStack.push(0);
             }).after(function(){
-                self.afterCallStack.push(4);
+                self.afterCallStack.push(0);
             }).afterAll(function(){
-                self.afterAllCallStack.push(4);
-            });
-
-            this.suit3.setBefore(this.suit2,function(){
-                self.beforeCallStack.push(21);
+                self.afterAllCallStack.push(0);
             });
 
             this.suit3.replaceWith(this.suit2,this.replacer);
-            this.suit3.setBefore(this.replacer,function(){
-                self.beforeCallStack.push(41);
-            });
-            this.suit3.setAfter(this.suit2,function(){
-                self.afterCallStack.push(21);
-            });
-            this.suit3.setAfter(this.replacer,function(){
-                self.afterCallStack.push(41);
-            })
         });
 
         before(function () {
@@ -269,10 +198,11 @@ describe(MSG,function(){
         before(RunSpyMethods);
 
         it("before call stack should have inserted calls before second suit", function () {
-            this.beforeCallStack.should.be.eql([1, 21, 4, 3]);
-            this.beforeAllCallStack.should.be.eql([1, 4, 3]);
-            this.afterCallStack.should.be.eql([1, 4, 21, 3]);
-            this.afterAllCallStack.should.be.eql([1, 4, 3]);
+            this.beforeCallStack.should.be.eql([1, 0, 3]);
+        });
+
+        it("beforeAll call stack should have inserted calls before second suit", function () {
+            this.beforeAllCallStack.should.be.eql([1, 0, 3]);
         });
 
         after(ResetSpyMethods);

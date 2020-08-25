@@ -3,7 +3,7 @@
 // Definitions by: Sukharev Kirill <SukharevKirill@gmail.com>
 
 declare type Suit = { [key:string]: any } & { [key:number]: any };
-declare type TestSet = { testSet: boolean; } & { [key:string]: Suit; }
+declare type TestSet = { testSet: boolean } & { [key:string]: Suit }
 
 declare interface DoneMethod {
     (err?: any): void
@@ -42,7 +42,7 @@ declare interface ReplaceMethod {
 }
 
 declare interface SetMethod {
-    (this: MochaSuitFactory, suit: MochaSuitFactory, cb: CallBack) : MochaSuitFactory;
+    (this: MochaSuitFactory, suit: MochaSuitFactory, newSuit: MochaSuitFactory) : MochaSuitFactory;
 }
 
 declare class MochaSuitFactory {
@@ -69,14 +69,14 @@ declare interface MochaSuitFactory {
     xthat: TestMethod;
     with: WithMethod;
     replaceWith: ReplaceMethod;
-    setBefore: SetMethod;
-    setAfter: SetMethod;
-    setBeforeAll: SetMethod;
-    setAfterAll: SetMethod;
+    insertAbove: SetMethod;
+    insertBelow: SetMethod;
     [key:string]: MochaSuitFactory | Function | Suit
 }
 
 
 declare function MochaSuitModule(name?: string): MochaSuitFactory;
+declare function MochaSuitModule(name?: string, context?: any): MochaSuitFactory;
+declare function MochaSuitModule(context?: any): MochaSuitFactory;
 
 export = MochaSuitModule;

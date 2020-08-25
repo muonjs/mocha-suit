@@ -17,8 +17,7 @@ describe(MSG,function(){
                 "it","xit",
                 "that","xthat",
                 "with","replaceWith",
-                "setBefore","setAfter",
-                "setBeforeAll","setAfterAll"
+                "insertAbove","insertBelow",
             ].forEach(function(prop){
                 self.suit.should.have.property(prop).which.is.a.Function();
             });
@@ -46,12 +45,12 @@ describe(MSG,function(){
             });
         });
 
-        it("setBefore/setAfter methods should return suit itself.",function(){
+        it("insertAbove/insertBelow methods should return suit itself.",function(){
             var self = this;
             [
-                "setBefore","setAfter","setBeforeAll","setAfterAll"
+                "insertAbove","insertBelow"
             ].forEach(function(prop){
-                var ret = self.suit[prop](self.suit,function(){});
+                var ret = self.suit[prop](self.suit,self.helperSuit);
                 ret.should.be.eql(self.suit);
             });
         });
@@ -70,6 +69,7 @@ describe(MSG,function(){
     describe("Generated suit",function(){
         before(function(){
             this.suit = mod();
+            this.helperSuit = mod();
         });
         run();
         it("Suit parent should be null",function(){
@@ -81,6 +81,7 @@ describe(MSG,function(){
         before(function(){
             this.parent = mod();
             this.suit = this.parent.extend("some");
+            this.helperSuit = mod();
         });
         run();
         it("Suit parent should be null",function(){
