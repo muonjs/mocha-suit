@@ -59,7 +59,7 @@ describe("Test binding to specific external context (this) object",function() {
             this.Suit = Suit;
 
             Suit.before(function() {
-                self.originalSuitObject = this.suit;
+                self.originalSuitObject = this;
             });
             Suit.bindTo(this.externalTestContext);
 

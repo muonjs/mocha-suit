@@ -19,17 +19,19 @@ declare interface CallBack {
 }
 
 declare interface SetupMethod {
+    (this: MochaSuitFactory, description: string, cb: CallBack): MochaSuitFactory;
     (this: MochaSuitFactory, cb: CallBack): MochaSuitFactory;
     (this: MochaSuitFactory, suit: MochaSuitFactory) : MochaSuitFactory;
 }
 
 declare interface TeardownMethod {
+    (this: MochaSuitFactory, description: string, cb: CallBack): MochaSuitFactory;
     (this: MochaSuitFactory, cb: CallBack) : MochaSuitFactory;
     (this: MochaSuitFactory, suit: MochaSuitFactory) : MochaSuitFactory;
 }
 
 declare interface TestMethod {
-    (this: MochaSuitFactory, caseDescription: string, cb: CallBack) : MochaSuitFactory;
+    (this: MochaSuitFactory, description: string, cb?: CallBack) : MochaSuitFactory;
     (this: MochaSuitFactory, suit: MochaSuitFactory) : MochaSuitFactory;
 }
 
@@ -48,7 +50,16 @@ declare interface SetMethod {
 declare class MochaSuitFactory {
     constructor();
     suit: Suit;
-    timeout: (timeout: number) => void;
+    // Attribute list of mocha context (based on mocha@8.1.2)
+    currentTest: any;
+    _runnable: any;
+    test: any;
+    runnable: (any) => MochaSuitFactory;
+    timeout: (ms: number) => void;
+    enableTimeouts: (enabled: boolean) => void;
+    slow: (ms: number) => void;
+    skip: () => void;
+    inspect: () => string;
 }
 
 declare interface MochaSuitFactory {

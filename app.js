@@ -47,6 +47,7 @@ var Module = function(name,ctx,f) {
 
             var parents = [];
             var CurrentSuit = this[utils.SUIT_PROPERTY];
+
             var ctx = utils.getSuitContextObject(CurrentSuit,{});
 
             while(utils.isSuit(CurrentSuit)) {
@@ -87,7 +88,11 @@ var Module = function(name,ctx,f) {
             if (utils.isSuit(a)) {
                 utils.pushNewCall(this,callName, { suit: a, args: b });
             } else {
-                utils.pushNewCall(this,callName, { fcall: a });
+                if (typeof a !== "string") {
+                    b = a;
+                    a = undefined;
+                }
+                utils.pushNewCall(this,callName, { msg: a, fcall: b });
             }
             return this;
         };
@@ -186,9 +191,14 @@ var Module = function(name,ctx,f) {
         utils.unbind(this);
     };
 
-    TestSuit.copy = function() {
-        var NewSuit = Module();
+    TestSuit.copy = function(description,__ctx) {
+        var NewSuit;
         var OldSuit = this;
+        if (OldSuit.parent) {
+            NewSuit = OldSuit.parent.extend(description,__ctx);
+        } else {
+            NewSuit = Module(description,__ctx);
+        }
         Object.keys(OldSuit).forEach(function(key) {
             (utils.getCallList(OldSuit,key) || []).forEach(function(f) {
                 var newDescriptor = Object.assign({},f);
